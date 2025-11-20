@@ -43,15 +43,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<form action="#" method="POST">
-    <h2>Connexion</h2>
-    <input type="email" name="userEmail" placeholder="Votre email" required value="<?= htmlspecialchars($_POST['userEmail'] ?? '') ?>">
-    <input type="password" name="userPwd" placeholder="Votre mot de passe" required>
-    <button type="submit">Se connecter</button>
-</form>
+<head>
+        <style>
 
-<?php 
-if ($message !== "") {
-    echo "<p>$message</p>"; 
-}
-?>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+
+<section class="container">
+    <div class="logo">
+        <img src="/assets/images/Logo.png" alt="logo de la web app 'Garant'IA'" >
+    </div>
+    <div id="register-title">
+        <p>Le Dashboard de garanties qui ne vous fera pas oublier votre argent.</p>
+    </div>
+
+    <form action="#" method="POST">
+        <h2>Connexion</h2>
+        <input type="email" name="userEmail" placeholder="Votre email" required value="<?= htmlspecialchars($_POST['userEmail'] ?? '') ?>">
+        <input type="password" name="userPwd" placeholder="Votre mot de passe" required>
+        <button type="submit">Se connecter</button>
+    </form>
+    <a href="http://localhost:8000/?page=register">
+        <button class="register-btn">Créer mon compte</button>
+    </a>
+
+    <?php if ($message !== "") { echo "<p>$message</p>"; }?>
+
+</section>
