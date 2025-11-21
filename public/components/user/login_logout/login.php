@@ -43,6 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
+<head>
+    
+</head>
+
 <form action="#" method="POST">
     <h2>Connexion</h2>
     <input type="email" name="userEmail" placeholder="Votre email" required value="<?= htmlspecialchars($_POST['userEmail'] ?? '') ?>">

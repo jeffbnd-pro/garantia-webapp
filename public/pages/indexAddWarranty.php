@@ -1,67 +1,90 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['iduser'])) {
-    echo "Erreur : utilisateur non connecté";
-    exit;
-}
-
-$message = "";
-
-// Vérifier si le formulaire est soumis
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    // Récupérer et nettoyer les données
-    $nameWarranty   = htmlspecialchars(trim($_POST['nameWarranty']));
-    $brandWarranty  = htmlspecialchars(trim($_POST['brandWarranty']));
-    $purchaseDate   = $_POST['purchaseDate'];
-    $warrantyTime   = $_POST['warrantyTime'];
-    $userId         = $_SESSION['iduser'];
-
-
-    if (empty($nameWarranty) || empty($brandWarranty) || empty($purchaseDate) || empty($warrantyTime)) {
-        $message = "Veuillez remplir tous les champs.";
-    } else {
-        try {
-            // Préparer la requête
-            $stmt = $pdo->prepare("
-                INSERT INTO `Warranty` (`brandWarranty`, `nameWarranty`, `purchaseDate`, `warrantyTime`, `user_iduser`) VALUES (?, ?, ?, ?, ?);
-            ");
-
-            // Exécuter la requete
-            if ($stmt->execute([$nameWarranty, $brandWarranty, $purchaseDate, $warrantyTime, $userId])) {
-                $message = "Garantie ajoutée avec succès !";
-
-                // (Optionnel) vider le formulaire apres ajout
-                $nameWarranty = $brandWarranty = $purchaseDate = $warrantyTime = "";
-            } else {
-                $message = "Erreur lors de l'ajout de la garantie.";
-            }
-        } catch (PDOException $e) {
-            $message = "Erreur serveur : " . $e->getMessage();
-        }
-    }
-}
-?>
-
 <h2>Ajouter une garantie</h2>
 
-<?php if ($message !== ""): ?>
-    <p><?= htmlspecialchars($message) ?></p>
-<?php endif; ?>
 
-<form action="#" method="POST">
-    <label>Nom du produit</label>
-    <input type="text" name="nameWarranty" required value="<?= htmlspecialchars($nameWarranty ?? '') ?>">
 
+<form  method="post" id="addWarrantyForm">
     <label>Marque</label>
-    <input type="text" name="brandWarranty" required value="<?= htmlspecialchars($brandWarranty ?? '') ?>">
+    <input type="text" name="brandWarranty" required>
+
+    <label>Nom du produit</label>
+    <input type="text" name="nameWarranty" required >
 
     <label>Date d'achat</label>
-    <input type="date" name="purchaseDate" required value="<?= htmlspecialchars($purchaseDate ?? '') ?>">
+    <input type="date" name="purchaseDate" required >
 
     <label>Date fin de garantie</label>
-    <input type="date" name="warrantyTime" required value="<?= htmlspecialchars($warrantyTime ?? '') ?>">
+    <input type="date" name="warrantyTime" required>
 
     <button type="submit">Ajouter</button>
 </form>
+
+
+<script>
+// Variable to hold request
+var request;
+    console.log('ok');
+
+$(document).ready(function() {
+// Bind to the submit event of our form
+$("#addWarrantyForm").submit(function(event){
+
+    // Prevent default posting of form - put here to work in case of errors
+    event.preventDefault();
+    console.log('ok');
+
+    // Abort any pending request
+    if (request) {
+        request.abort();
+    }
+    // setup some local variables
+    var $form = $(this);
+
+    // Let's select and cache all the fields
+    var $inputs = $form.find("input, select, button, textarea");
+
+    // Serialize the data in the form
+    var serializedData = $form.serialize();
+
+    // Let's disable the inputs for the duration of the Ajax request.
+    // Note: we disable elements AFTER the form data has been serialized.
+    // Disabled form elements will not be serialized.
+    $inputs.prop("disabled", true);
+
+    // Fire off the request to /form.php
+    request = $.ajax({
+        url: "http://localhost:8000/?page=addWarrantyBdd",
+        type: "post",
+        data: serializedData
+    });
+
+
+request.done(function (response, textStatus, jqXHR) {
+    console.log(response);
+    console.log("Garantie bien ajoutée");
+
+    // 1. Vider le formulaire
+    document.getElementById('addWarrantyForm').reset();
+
+    // 2. Redirection vers le dashboard
+    window.location.href = "http://localhost:8000/layout.php?page=dashboard";
+});
+
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // Log the error to the console
+        console.error(
+            "The following error occurred: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // Reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+
+})
+});
+</script>

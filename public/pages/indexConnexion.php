@@ -6,8 +6,7 @@
     <title>Garant'IA</title>
 
     <!-- Google Font : Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="./assets/styles/styles.css">
     <style>
 
         .logo {
@@ -56,11 +55,20 @@
         .btn-secondary:hover {
             background: #f2f2f2;
         }
+
+        .connexion-container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
 <body>
-
+    <div class="connexion-container">
     <div class="logo">
         <img src="/assets/images/Logo.png" alt="logo de la web app 'Garant'IA'">
     </div>
@@ -73,6 +81,7 @@
         <a href='http://localhost:8000/?page=register'>
             <button class="btn btn-secondary">S'inscrire</button>
         </a>
+    </div>
     </div>
 
 </body>

@@ -5,10 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GarantIA</title>
     <link rel="stylesheet" href="/assets/styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 
     <style>
-        body { margin: 0; font-family: Arial; display: flex; flex-direction: column; height: 100vh; }
-        #main-content { flex: 1; overflow-y: auto; padding: 20px; }
+        body { 
+            margin: 0; 
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+        }
 
         #bottom-nav {
             display: flex;
@@ -17,6 +26,7 @@
             padding: 10px 0;
             position: fixed;
             bottom: 0;
+            left: 0;
             width: 100%;
         }
 
@@ -31,10 +41,11 @@
 
         #fixed-add-btn {
             position: fixed;
-            bottom: 60px; /* juste au-dessus de la nav */
+            bottom: 60px;
             width: 100%;
             display: flex;
             justify-content: center;
+            right: 2px;
             z-index: 100;
         }
 
