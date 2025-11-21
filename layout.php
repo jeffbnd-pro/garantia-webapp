@@ -20,15 +20,16 @@
 
         #bottom-nav {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: end;
             background: rgba(1, 1, 1, 0.2);
-            padding: 10px 0;
             position: fixed;
+            height: 60px;
             bottom: 20px;
             left: 15px;
             width: 90%;
             border-radius: 0 0 25px 25px;
+            overflow: hidden;
         }
 
         #bottom-nav button {
@@ -44,9 +45,17 @@
             background-color: rgba(243, 156, 18, 0.2);
         }
 
+        .nav-btn{
+            height: 60px;
+            width: 87.75px;
+        }
+
         .nav-btn.active div {
-            background-color: rgba(243, 156, 18, 0.3);
+            background: rgba(44, 143, 255, 0.1);
+            background: linear-gradient(90deg,rgba(44, 143, 255, 0.3) 0%, rgba(255, 0, 0, 0.3) 50%, rgba(155, 255, 197, 0.3) 100%);
             transition: all 0.3s ease;
+            height: 100%;
+            padding: 10px;
         }
 
         #fixed-add-btn {
