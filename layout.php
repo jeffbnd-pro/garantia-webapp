@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/assets/styles/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-
     <style>
         body { 
             margin: 0; 
@@ -22,12 +21,14 @@
         #bottom-nav {
             display: flex;
             justify-content: space-around;
-            background: #2c3e50;
+            align-items: end;
+            background: rgba(1, 1, 1, 0.2);
             padding: 10px 0;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 20px;
+            left: 15px;
+            width: 90%;
+            border-radius: 0 0 25px 25px;
         }
 
         #bottom-nav button {
@@ -36,31 +37,36 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
-        #bottom-nav button:hover { color: #f39c12; }
+
+        #bottom-nav button:hover div {
+            background-color: rgba(243, 156, 18, 0.2);
+        }
+
+        .nav-btn.active div {
+            background-color: rgba(243, 156, 18, 0.3);
+            transition: all 0.3s ease;
+        }
 
         #fixed-add-btn {
             position: fixed;
-            bottom: 60px;
+            bottom: 80px;
             width: 100%;
             display: flex;
             justify-content: center;
-            right: 2px;
+            right: 5px;
             z-index: 100;
         }
 
         #fixed-add-btn button {
-            background-color: #f39c12;
+            background-color: var(--ink);
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-        }
-
-        #fixed-add-btn button:hover {
-            background-color: #e67e22;
+            width: 90%;
         }
     </style>
 
@@ -72,14 +78,30 @@
 <div id="main-content"></div>
 
 <div id="fixed-add-btn">
-    <button id="add-warranty-btn">➕ Ajouter une garantie</button>
+    <button id="add-warranty-btn">J'Ajoute une garantie</button>
 </div>
 
 <div id="bottom-nav">
-    <button class="nav-btn" data-page="dashboard">🏠</button>
-    <button class="nav-btn" data-page="alert">🔔</button>
-    <button class="nav-btn" data-page="comming">🚧</button>
-    <button class="nav-btn" data-page="user">👤</button>
+    <button class="nav-btn" data-page="dashboard">
+        <div>
+            <img src="./assets/images/nav-images/nav-home.png" alt="#">
+        </div>
+    </button>
+    <button class="nav-btn" data-page="alert">
+        <div>
+            <img src="./assets/images/nav-images/nav-alert.png" alt="#">
+        </div>
+    </button>
+    <button class="nav-btn" data-page="comming">
+        <div>
+            <img src="./assets/images/nav-images/nav-comming.png" alt="#">
+        </div>
+    </button>
+    <button class="nav-btn" data-page="user">
+        <div>
+            <img src="./assets/images/nav-images/nav-user.png" alt="#">
+        </div>
+    </button>
 </div>
 
 <script>
@@ -100,13 +122,21 @@ $(document).ready(function(){
         });
     }
 
+    function setActiveNav(page) {
+        $(".nav-btn").removeClass("active"); // retire active de tous
+        $(".nav-btn[data-page='" + page + "']").addClass("active"); // met active au bon bouton
+    }
+
     // Charge la page demandée dans l’URL au chargement
     const current = new URLSearchParams(window.location.search).get('page') || 'dashboard';
     loadPage(current);
+    setActiveNav(current);
 
     // Navigation
     $(".nav-btn").click(function(){
-        loadPage($(this).data("page"));
+        const page = $(this).data("page");
+        loadPage(page);
+        setActiveNav(page);
     });
 
     // Bouton Ajouter une garantie

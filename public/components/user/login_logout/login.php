@@ -44,20 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <head>
-<<<<<<< HEAD
-    
-</head>
-
-<form action="#" method="POST">
-    <h2>Connexion</h2>
-    <input type="email" name="userEmail" placeholder="Votre email" required value="<?= htmlspecialchars($_POST['userEmail'] ?? '') ?>">
-    <input type="password" name="userPwd" placeholder="Votre mot de passe" required>
-    <button type="submit">Se connecter</button>
-</form>
-=======
         <style>
->>>>>>> abd0b6bc22c576e001be82ca1be89a17d4d4b0e0
-
         form {
             display: flex;
             flex-direction: column;

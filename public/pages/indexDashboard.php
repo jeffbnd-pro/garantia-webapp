@@ -93,6 +93,3 @@ $warranties = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php endif; ?>
 </section>
-
-</body>
-</html>

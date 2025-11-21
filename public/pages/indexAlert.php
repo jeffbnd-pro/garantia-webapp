@@ -27,17 +27,14 @@ $stmt->execute();
 $alerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Alertes - Garanties bientôt expirées</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background: #f3f3f3;
+        #container-alert{
+            margin-bottom: 110px;
         }
+
         .alert-card {
             border: 1px solid #ffbbbb;
             border-radius: 8px;
@@ -57,11 +54,11 @@ $alerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 
-<body>
 
 <h1>Alertes Garantie</h1>
 <p>Voici les garanties qui expirent bientôt (moins de 30 jours).</p>
 
+<section id="container-alert">
 <?php if (!empty($alerts)): ?>
 
     <?php foreach ($alerts as $row): ?>
@@ -105,6 +102,4 @@ $alerts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <p>Aucune garantie n'expire dans les 30 prochains jours. 👍</p>
 
 <?php endif; ?>
-
-</body>
-</html>
+</section>
